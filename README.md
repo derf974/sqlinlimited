@@ -1,6 +1,8 @@
 # sqlinlimited
 Generate a sql without the 1000 limit in "IN" Parameters
 
+You can use it at : [sqlinlimited](https://derf974.github.io/sqlinlimited/) 
+
 1. You need to provide a list like:
 ```
 elem773
