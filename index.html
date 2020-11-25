@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <script src='' ></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+    </head>
+<body>
+	<div class="container">
+	<div class="row">
+	    <div class="col-lg-9 mx-auto">
+	      <div id="accordionExample" class="accordion shadow">
+	        <div class="card">
+	          <div id="headingOne" class="card-header bg-white shadow-sm border-0">
+	            <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="d-block position-relative text-dark text-uppercase collapsible-link py-2">Listes</a></h6>
+	          </div>
+	          <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample" class="collapse show">
+	            <div class="card-body p-5">
+	            	<textarea style="width: 100%;height: 150px" name="listelements" id="listelements"></textarea>
+	            </div>
+	          </div>
+	        </div>
+
+	        <div class="card">
+	          <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
+	            <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">Requete SQL</a></h6>
+	          </div>
+	          <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample" class="collapse">
+	            <div class="card-body p-5">
+	              <textarea style="width: 100%;height: 150px" name="requete" id="requete">SELECT * FROM TABLE WHERE FIELD in ( {{LISTE}} )</textarea>
+	            </div>
+	          </div>
+        	</div>
+			
+        	<div class="card">
+				<button id="generate" onclick="generate()" >generate </button>
+			</div>
+
+			<div class="card" >
+			  <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
+	            <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">Resultat</a></h6>
+	          </div>
+	          <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample" class="collapse">
+	            <div class="card-body p-5" id="result" >
+	            </div>
+	          </div>
+			</div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+	function generate(){
+		console.log("generate");
+		listelem = document.getElementById('listelements');
+		req = document.getElementById('requete');
+		response = document.getElementById('result');
+		var result=[];
+		var lsttmp=[];
+		l = listelem.value.split('\n');
+		do
+		{
+			lsttmp = l.splice(0,1000);
+			if( lsttmp.length  > 0 ){
+				result.push(req.textContent.replace('{{LISTE}}',lsttmp.join(',')));
+			}
+			console.log(result);
+		}while ( lsttmp.length > 0 )
+		response.innerHTML = result.join(' UNION ALL ');
+	};
+</script>
+
+</body>
+</html>
